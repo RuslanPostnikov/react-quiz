@@ -1,5 +1,6 @@
 import React from "react";
-import styles from './Quiz.module.css'
+import styles from './Quiz.module.css';
+import ActiveQuiz from "../components/ActiveQuiz";
 
 export default class Quiz extends React.Component{
     constructor(props) {
@@ -12,7 +13,10 @@ export default class Quiz extends React.Component{
     render() {
         return (
             <div className={styles.Quiz}>
-                <h1>Quiz</h1>
+                <div className={styles.QuizWrapper}>
+                    <h1>Quiz</h1>
+                    <ActiveQuiz />
+                </div>
             </div>
         );
     }
