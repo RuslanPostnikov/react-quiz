@@ -1,6 +1,7 @@
 import styles from './ActiveQuiz.module.css'
+import AnswersList from "./AnswersList";
 
-const ActiveQuiz = () => (
+const ActiveQuiz = props => (
     <div className={styles.ActiveQuiz}>
         <p className={styles.Question}>
             <span>
@@ -11,12 +12,7 @@ const ActiveQuiz = () => (
             <small>4/12</small>
         </p>
 
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
+        <AnswersList answers={props.answers}/>
     </div>
 )
 

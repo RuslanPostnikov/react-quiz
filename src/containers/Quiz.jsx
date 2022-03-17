@@ -6,7 +6,16 @@ export default class Quiz extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            quiz: []
+            quiz: [
+                {
+                    answers: [
+                        {text: 'Q1'},
+                        {text: 'Q2'},
+                        {text: 'Q3'},
+                        {text: 'Q4'},
+                    ]
+                }
+            ]
         }
     }
 
@@ -14,8 +23,8 @@ export default class Quiz extends React.Component{
         return (
             <div className={styles.Quiz}>
                 <div className={styles.QuizWrapper}>
-                    <h1>Quiz</h1>
-                    <ActiveQuiz />
+                    <h1>Answer all questions</h1>
+                    <ActiveQuiz answers={this.state.quiz[0].answers}/>
                 </div>
             </div>
         );
