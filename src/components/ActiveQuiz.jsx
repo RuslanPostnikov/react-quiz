@@ -5,11 +5,11 @@ const ActiveQuiz = props => (
     <div className={styles.ActiveQuiz}>
         <p className={styles.Question}>
             <span>
-                <strong>2. </strong>
+                <strong>{props.questionNumber}. </strong>
                 {props.question}
             </span>
 
-            <small>4 / 12</small>
+            <small>{props.questionNumber} / {props.quizLength}</small>
         </p>
 
         <AnswersList
