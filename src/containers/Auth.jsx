@@ -15,6 +15,7 @@ export default class Auth extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isFormValid: false,
             formControls: {
                 email: {
                     value: '',
@@ -81,7 +82,13 @@ export default class Auth extends React.Component {
 
         formControls[controlName] = control;
 
-        this.setState({formControls});
+        let isFormValid = true;
+
+        Object.keys(formControls).forEach(name => isFormValid = formControls[name].valid && isFormValid);
+
+
+
+        this.setState({formControls, isFormValid});
     }
 
     renderInputs() {
@@ -112,8 +119,16 @@ export default class Auth extends React.Component {
 
                     <form onSubmit={this.submitHandler} className={styles.AuthForm}>
                         {this.renderInputs()}
-                        <Button type='success' onClick={this.logInHandler}>Log in</Button>
-                        <Button type='primary' onClick={this.signInHandler}>Sign in</Button>
+                        <Button
+                            type='success'
+                            onClick={this.logInHandler}
+                            disabled={!this.state.isFormValid}
+                        >Log in</Button>
+                        <Button
+                            type='primary'
+                            onClick={this.signInHandler}
+                            disabled={!this.state.isFormValid}
+                        >Sign in</Button>
                     </form>
                 </div>
             </div>
