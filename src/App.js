@@ -9,10 +9,10 @@ function App() {
   return (
     <Layout>
         <Routes>
-            <Route path='/' element={<Quiz />}/>
+            <Route path='/' element={<QuizList />}/>
             <Route path='auth' element={<Auth />}/>
             <Route path='quiz-creator' element={<QuizCreator />}/>
-            <Route path='quiz/:id' element={<QuizList />}/>
+            <Route path='quiz/:id' element={<Quiz />}/>
         </Routes>
     </Layout>
   );
