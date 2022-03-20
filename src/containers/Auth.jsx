@@ -71,8 +71,6 @@ export default class Auth extends React.Component {
     }
 
     onChangeHandler = (e, controlName) => {
-        console.log(`${controlName}: `, e.target.value);
-
         const formControls = {...this.state.formControls};
         const control = {...formControls[controlName]};
 
