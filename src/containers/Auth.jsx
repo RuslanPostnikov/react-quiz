@@ -123,12 +123,16 @@ export default class Auth extends React.Component {
                             type='success'
                             onClick={this.logInHandler}
                             disabled={!this.state.isFormValid}
-                        >Log in</Button>
+                        >
+                            Log in
+                        </Button>
                         <Button
                             type='primary'
                             onClick={this.signInHandler}
                             disabled={!this.state.isFormValid}
-                        >Sign in</Button>
+                        >
+                            Sign in
+                        </Button>
                     </form>
                 </div>
             </div>
