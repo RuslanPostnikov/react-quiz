@@ -6,7 +6,7 @@ import QuizCreator from "./containers/QuizCreator";
 import Auth from "./containers/Auth";
 
 function App() {
-  return (
+    return (
     <Layout>
         <Routes>
             <Route path='/' element={<QuizList />}/>

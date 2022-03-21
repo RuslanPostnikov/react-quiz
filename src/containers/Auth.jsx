@@ -110,6 +110,7 @@ export default class Auth extends React.Component {
 
 
     render() {
+        console.log(this.props.id);
         return (
             <div className={styles.Auth}>
                 <div>

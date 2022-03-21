@@ -1,8 +1,10 @@
 import styles from './ActiveQuiz.module.css'
 import AnswersList from "./AnswersList";
 
-const ActiveQuiz = props => (
-    <div className={styles.ActiveQuiz}>
+const ActiveQuiz = props => {
+    console.log(props);
+
+    return <div className={styles.ActiveQuiz}>
         <p className={styles.Question}>
             <span>
                 <strong>{props.questionNumber}. </strong>
@@ -18,6 +20,6 @@ const ActiveQuiz = props => (
             onAnswerClick={props.onAnswerClick}
         />
     </div>
-)
+}
 
 export default ActiveQuiz;

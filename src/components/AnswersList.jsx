@@ -1,8 +1,9 @@
 import styles from './AnswersList.module.css';
 import AnswerItem from "./AnswerItem";
 
-const AnswersList = (props) => (
-    <ul className={styles.AnswersList}>
+const AnswersList = (props) => {
+    console.log(props);
+    return (<ul className={styles.AnswersList}>
         {props.answers.map((answer, index) => {
             return (
                 <AnswerItem
@@ -13,7 +14,7 @@ const AnswersList = (props) => (
                 />
             )
         })}
-    </ul>
-)
+    </ul>)
+}
 
 export default AnswersList;
