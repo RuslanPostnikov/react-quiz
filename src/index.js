@@ -6,8 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {createStore, compose, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import rootReducer from "./store/reducers/rootReducer";
 import thunk from 'redux-thunk';
+
+import rootReducer from "./store/reducers/rootReducer";
 
 const composeEnhancers =
     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

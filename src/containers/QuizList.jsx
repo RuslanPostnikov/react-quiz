@@ -23,7 +23,6 @@ class QuizList extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className={styles.QuizList}>
                 <div>
@@ -40,7 +39,6 @@ class QuizList extends React.Component {
         );
     }
 }
-
 
 function mapStateToProps(state) {
     return {

@@ -9,15 +9,15 @@ const links = [
     {to: 'quiz-creator', label: 'Create test'},
 ];
 
-export default class Drawer extends React.Component {
-    renderLinks() {
+const Drawer = props => {
+    const renderLinks = () => {
         return links.map((link, index) => {
             return (
                 <li key={index}>
                     <NavLink
                         to={link.to}
                         className={({isActive}) => isActive ? styles.active : undefined}
-                        onClick={this.props.onClose}
+                        onClick={props.onClose}
                     >
                         {link.label}
                     </NavLink>
@@ -26,21 +26,21 @@ export default class Drawer extends React.Component {
         })
     }
 
-    render() {
-        const cls = [styles.Drawer];
-        if(!this.props.isOpen) {
-            cls.push(styles.close)
-        }
-
-        return (
-            <>
-                <nav className={cls.join(' ')}>
-                    <ul>
-                        {this.renderLinks()}
-                    </ul>
-                </nav>
-                {this.props.isOpen ? <Backdrop onClick={this.props.onClose}/> : null}
-            </>
-        );
+    const cls = [styles.Drawer];
+    if(!props.isOpen) {
+        cls.push(styles.close)
     }
+
+    return (
+        <>
+            <nav className={cls.join(' ')}>
+                <ul>
+                    {renderLinks()}
+                </ul>
+            </nav>
+            {props.isOpen ? <Backdrop onClick={props.onClose}/> : null}
+        </>
+    );
 }
+
+export default Drawer;
