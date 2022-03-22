@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./Auth.module.css";
 import Button from "../components/UI/Button";
 import Input from "../components/UI/Input";
-import axios from "axios";
+import {connect} from "react-redux";
+import {auth} from "../store/actions/auth";
 
 const validateEmail = (email) => {
     return String(email)
@@ -12,7 +13,7 @@ const validateEmail = (email) => {
         );
 };
 
-export default class Auth extends React.Component {
+class Auth extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,34 +48,20 @@ export default class Auth extends React.Component {
     }
 
 
-    logInHandler = async () => {
-        const authData = {
-            email: this.state.formControls.email.value,
-            password: this.state.formControls.password.value,
-            returnSecureToken: true
-        }
-        try {
-            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDjmzvawEhhgI_Y1_o_IZXMe6nwd5Vmi7Q', authData);
-
-            console.log(response.data);
-        } catch (e) {
-            console.log(e);
-        }
+    logInHandler = () => {
+        this.props.auth(
+            this.state.formControls.email.value,
+            this.state.formControls.password.value,
+            true
+        );
     }
 
-    signInHandler = async () => {
-        const authData = {
-            email: this.state.formControls.email.value,
-            password: this.state.formControls.password.value,
-            returnSecureToken: true
-        }
-        try {
-            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDjmzvawEhhgI_Y1_o_IZXMe6nwd5Vmi7Q', authData);
-
-            console.log(response.data);
-        } catch (e) {
-            console.log(e);
-        }
+    signInHandler = () => {
+        this.props.auth(
+            this.state.formControls.email.value,
+            this.state.formControls.password.value,
+            false
+        );
     }
 
     submitHandler = (e) => {
@@ -160,3 +147,11 @@ export default class Auth extends React.Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);
