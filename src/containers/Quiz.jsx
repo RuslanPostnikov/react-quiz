@@ -1,52 +1,90 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from './Quiz.module.css';
 import ActiveQuiz from "../components/ActiveQuiz";
 import FinishedQuiz from "../components/FinishedQuiz";
-import withRouter from "../hoc/withRouter";
 import Loader from "../components/UI/Loader";
 import {connect} from "react-redux";
 import {fetchQuizById, quizAnswerClick, retryQuiz} from "../store/actions/quiz";
+import {useParams} from "react-router-dom";
 
 
-class Quiz extends React.Component{
+// class Quiz extends React.Component{
+//
+//     componentDidMount() {
+//         this.props.fetchQuizById(this.props.params.id)
+//     }
+//
+//     componentWillUnmount() {
+//         this.props.retryQuiz()
+//     }
+//
+//     render() {
+//         return (
+//             <div className={styles.Quiz}>
+//                 <div className={styles.QuizWrapper}>
+//                     <h1>Answer all questions</h1>
+//
+//                     {
+//                         this.props.loading || !this.props.quiz
+//                         ? <Loader />
+//                         : this.props.isFinished
+//                         ? <FinishedQuiz
+//                             results={this.props.results}
+//                             quiz={this.props.quiz}
+//                             onRetry={this.props.retryQuiz}
+//                         />
+//                         : <ActiveQuiz
+//                             question={this.props.quiz[this.props.activeQuestion].question}
+//                             answers={this.props.quiz[this.props.activeQuestion].answers}
+//                             onAnswerClick={this.props.quizAnswerClick}
+//                             quizLength={this.props.quiz.length}
+//                             questionNumber={this.props.activeQuestion + 1}
+//                             state={this.props.answerState}
+//                         />
+//                     }
+//
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
 
-    componentDidMount() {
-        this.props.fetchQuizById(this.props.params.id)
-    }
+const Quiz = props => {
+    const { id } = useParams();
+    const {fetchQuizById, retryQuiz} = props;
 
-    componentWillUnmount() {
-        this.props.retryQuiz()
-    }
+    useEffect(() => {
+        fetchQuizById(id);
+        return () => retryQuiz();
+    }, [fetchQuizById, id, retryQuiz])
 
-    render() {
         return (
             <div className={styles.Quiz}>
                 <div className={styles.QuizWrapper}>
                     <h1>Answer all questions</h1>
 
                     {
-                        this.props.loading || !this.props.quiz
-                        ? <Loader />
-                        : this.props.isFinished
-                        ? <FinishedQuiz
-                            results={this.props.results}
-                            quiz={this.props.quiz}
-                            onRetry={this.props.retryQuiz}
-                        />
-                        : <ActiveQuiz
-                            question={this.props.quiz[this.props.activeQuestion].question}
-                            answers={this.props.quiz[this.props.activeQuestion].answers}
-                            onAnswerClick={this.props.quizAnswerClick}
-                            quizLength={this.props.quiz.length}
-                            questionNumber={this.props.activeQuestion + 1}
-                            state={this.props.answerState}
-                        />
+                        props.loading || !props.quiz
+                            ? <Loader />
+                            : props.isFinished
+                                ? <FinishedQuiz
+                                    results={props.results}
+                                    quiz={props.quiz}
+                                    onRetry={props.retryQuiz}
+                                />
+                                : <ActiveQuiz
+                                    question={props.quiz[props.activeQuestion].question}
+                                    answers={props.quiz[props.activeQuestion].answers}
+                                    onAnswerClick={props.quizAnswerClick}
+                                    quizLength={props.quiz.length}
+                                    questionNumber={props.activeQuestion + 1}
+                                    state={props.answerState}
+                                />
                     }
 
                 </div>
             </div>
         );
-    }
 }
 
 function mapStateToProps(state) {
@@ -68,4 +106,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Quiz));
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
