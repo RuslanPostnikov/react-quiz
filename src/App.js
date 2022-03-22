@@ -1,21 +1,42 @@
 import Layout from "./hoc/Layout";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import Quiz from "./containers/Quiz";
 import QuizList from "./containers/QuizList";
 import QuizCreator from "./containers/QuizCreator";
 import Auth from "./containers/Auth";
+import {connect} from "react-redux";
+import Logout from "./components/Logout";
+import {useEffect} from "react";
 
-function App() {
+const App = props => {
+    const {autoLogin} = props;
+
+    useEffect(() => autoLogin(), [autoLogin])
+
     return (
     <Layout>
         <Routes>
-            <Route path='/' element={<QuizList />}/>
+            <Route index element={<QuizList />}/>
             <Route path='auth' element={<Auth />}/>
             <Route path='quiz-creator' element={<QuizCreator />}/>
             <Route path='quiz/:id' element={<Quiz />}/>
+            {props.isAuthenticated ? <Route path='logout' element={<Logout/>}/> : null}
+            <Route path='*' element={<Navigate to='/' />}/>
         </Routes>
     </Layout>
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: !!state.auth.token
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        autoLogin: () => dispatch(autoLogin);
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
