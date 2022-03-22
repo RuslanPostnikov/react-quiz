@@ -133,5 +133,6 @@ export function quizAnswerClick(answerId) {
 }
 
 function isQuizFinished(state) {
+    console.log(state);
     return state.activeQuestion + 1 === state.quiz.length;
 }
