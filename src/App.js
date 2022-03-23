@@ -7,6 +7,7 @@ import Auth from "./containers/Auth";
 import {connect} from "react-redux";
 import Logout from "./components/Logout";
 import {useEffect} from "react";
+import {autoLogin} from "./store/actions/auth";
 
 const App = props => {
     const {autoLogin} = props;
@@ -17,10 +18,9 @@ const App = props => {
     <Layout>
         <Routes>
             <Route index element={<QuizList />}/>
-            <Route path='auth' element={<Auth />}/>
             <Route path='quiz-creator' element={<QuizCreator />}/>
             <Route path='quiz/:id' element={<Quiz />}/>
-            {props.isAuthenticated ? <Route path='logout' element={<Logout/>}/> : null}
+            {!props.isAuthenticated ? <Route path='auth' element={<Auth />}/> : <Route path='logout' element={<Logout/>}/>}
             <Route path='*' element={<Navigate to='/' />}/>
         </Routes>
     </Layout>
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        autoLogin: () => dispatch(autoLogin);
+        autoLogin: () => dispatch(autoLogin)
     }
 }
 
